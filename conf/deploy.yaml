@@ -1,0 +1,10 @@
+elasticsearch:
+  address: "http://10.138.0.2:9200"
+  username: "lam"
+  password: "password"
+
+gcs:
+  bucket: "lam_around_asia"
+
+token:
+  secret: "secret"
