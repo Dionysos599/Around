@@ -29,7 +29,7 @@ const tailFormItemLayout = {
   },
 };
 
-function Register(props) {
+const Register = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -126,6 +126,6 @@ function Register(props) {
       </Form.Item>
     </Form>
   );
-}
+};
 
 export default Register;
