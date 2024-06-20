@@ -3,7 +3,7 @@ import logo from "../assets/images/logo.svg";
 
 import { ApiOutlined } from "@ant-design/icons";
 
-function TopBar(props) {
+const TopBar = (props) => {
   const { isLoggedIn, handleLogout } = props;
   return (
     <header className="App-header">
@@ -14,6 +14,6 @@ function TopBar(props) {
       ) : null}
     </header>
   );
-}
+};
 
 export default TopBar;
