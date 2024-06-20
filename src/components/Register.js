@@ -1,9 +1,11 @@
 import React from "react";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, InputNumber, Select } from "antd";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
+
+const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
@@ -33,13 +35,15 @@ function Register(props) {
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-    const { username, password } = values;
+    const { username, password, age, gender } = values;
     const opt = {
       method: "POST",
       url: `${BASE_URL}/signup`,
       data: {
         username: username,
         password: password,
+        age: age || 0,
+        gender: gender || "other",
       },
       headers: { "content-type": "application/json" },
     };
@@ -54,8 +58,12 @@ function Register(props) {
         }
       })
       .catch((error) => {
-        console.log("register failed: ", error.message);
-        message.error("Registration failed!");
+        // case2: registered failed
+        if (error.response.status === 400) {
+          message.error("Username already exists");
+        } else {
+          message.error("Something went wrong");
+        }
       });
   };
 
@@ -73,11 +81,32 @@ function Register(props) {
         rules={[
           {
             required: true,
-            message: "The field should not be empty",
+            message: "This field should not be empty",
           },
         ]}
       >
         <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="age"
+        label="Age"
+        rules={[
+          {
+            type: "number",
+            min: 0,
+          },
+        ]}
+      >
+        <InputNumber />
+      </Form.Item>
+
+      <Form.Item name="gender" label="Gender">
+        <Select>
+          <Option value="male">Male</Option>
+          <Option value="female">Female</Option>
+          <Option value="other">Other</Option>
+        </Select>
       </Form.Item>
 
       <Form.Item
@@ -86,7 +115,7 @@ function Register(props) {
         rules={[
           {
             required: true,
-            message: "The field should not be empty",
+            message: "This field should not be empty",
           },
         ]}
         hasFeedback
@@ -102,7 +131,7 @@ function Register(props) {
         rules={[
           {
             required: true,
-            message: "The field should not be empty",
+            message: "This field should not be empty",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
