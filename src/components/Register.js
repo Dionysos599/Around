@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
-import { Link } from "react-router-dom"; // Ensure Link is imported
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
@@ -15,7 +15,6 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
-
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -29,7 +28,7 @@ const tailFormItemLayout = {
   },
 };
 
-const Register = (props) => {
+function Register(props) {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -48,8 +47,9 @@ const Register = (props) => {
     axios(opt)
       .then((response) => {
         console.log(response);
+        // case1: registered success
         if (response.status === 200) {
-          message.success("Now you can login!");
+          message.success("Now you can log in!");
           props.history.push("/login");
         }
       })
@@ -73,7 +73,7 @@ const Register = (props) => {
         rules={[
           {
             required: true,
-            message: "This field should not be empty",
+            message: "The field should not be empty",
           },
         ]}
       >
@@ -86,7 +86,7 @@ const Register = (props) => {
         rules={[
           {
             required: true,
-            message: "This field should not be empty",
+            message: "The field should not be empty",
           },
         ]}
         hasFeedback
@@ -102,11 +102,11 @@ const Register = (props) => {
         rules={[
           {
             required: true,
-            message: "This field should not be empty",
+            message: "The field should not be empty",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (getFieldValue("password") === value) {
+              if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
               return Promise.reject("Passwords do not match");
@@ -126,6 +126,6 @@ const Register = (props) => {
       </Form.Item>
     </Form>
   );
-};
+}
 
 export default Register;
