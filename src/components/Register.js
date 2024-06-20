@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
+import { Link } from "react-router-dom"; // Ensure Link is imported
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
@@ -14,6 +15,7 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
+
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -46,7 +48,6 @@ function Register(props) {
     axios(opt)
       .then((response) => {
         console.log(response);
-        // case1: registered success
         if (response.status === 200) {
           message.success("Now you can login!");
           props.history.push("/login");
@@ -55,7 +56,6 @@ function Register(props) {
       .catch((error) => {
         console.log("register failed: ", error.message);
         message.error("Registration failed!");
-        // throw new Error('Signup Failed!')
       });
   };
 
@@ -102,11 +102,11 @@ function Register(props) {
         rules={[
           {
             required: true,
-            message: "Please confirm your password",
+            message: "This field should not be empty",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (!value || getFieldValue("password") === value) {
+              if (getFieldValue("password") === value) {
                 return Promise.resolve();
               }
               return Promise.reject("Passwords do not match");
@@ -118,6 +118,8 @@ function Register(props) {
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
+        <Link to="/login">Cancel</Link>
+        <span style={{ marginLeft: "60px" }}></span>
         <Button type="primary" htmlType="submit" className="register-btn">
           Register
         </Button>
