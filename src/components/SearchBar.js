@@ -20,7 +20,7 @@ const SearchBar = () => {
 
   const handleSearch = (value) => {
     if (searchType !== SEARCH_KEY.all && value === "") {
-      setError("Please input your search keyword!");
+      setError("Please input something!");
       return;
     }
     setError("");

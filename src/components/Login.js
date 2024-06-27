@@ -29,6 +29,10 @@ const Login = (props) => {
         }
       })
       .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          message.error("Invalid username or password");
+          return;
+        }
         console.log("login failed: ", err.message);
         message.error("Login failed!");
       });
