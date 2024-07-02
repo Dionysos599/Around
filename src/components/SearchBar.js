@@ -5,7 +5,7 @@ import { SEARCH_KEY } from "../constants";
 
 const { Search } = Input;
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   const [searchType, setSearchType] = useState(SEARCH_KEY.all);
   const [error, setError] = useState("");
 
@@ -13,18 +13,18 @@ const SearchBar = () => {
     const searchType = e.target.value;
     setSearchType(searchType);
     setError("");
-    // if (searchType === SEARCH_KEY.all) {
-    //   props.handleSearch({ type: searchType, keyword: "" });
-    // }
+    if (searchType === SEARCH_KEY.all) {
+      props.handleSearch({ type: searchType, keyword: "" });
+    }
   };
 
   const handleSearch = (value) => {
     if (searchType !== SEARCH_KEY.all && value === "") {
-      setError("Please input something!");
+      setError("Please input your search!");
       return;
     }
     setError("");
-    // props.handleSearch({ type: searchType, keyword: value });
+    props.handleSearch({ type: searchType, keyword: value });
   };
 
   return (

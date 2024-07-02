@@ -3,7 +3,6 @@ import TopBar from "./TopBar";
 import Main from "./Main";
 
 import { TOKEN_KEY } from "../constants";
-import { Divider } from "antd";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
