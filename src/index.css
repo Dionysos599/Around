@@ -4,6 +4,12 @@
 @import "./styles/Login.css";
 @import "./styles/Register.css";
 @import "./styles/Home.css";
+@import "./styles/SearchBar.css";
+@import "./styles/PhotoGallery.css";
+
+.ReactGridGallery_custom-overlay {
+  pointer-events: auto !important;
+}
 
 body {
   margin: 0;
