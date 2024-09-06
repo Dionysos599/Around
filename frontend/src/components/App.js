@@ -3,11 +3,10 @@ import TopBar from "./TopBar";
 import Main from "./Main";
 
 import { TOKEN_KEY } from "../constants";
-import { Divider } from "antd";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem(TOKEN_KEY) ? true : false
+      !!localStorage.getItem(TOKEN_KEY)
   );
 
   const logout = () => {
@@ -15,11 +14,18 @@ const App = () => {
     setIsLoggedIn(false);
   };
 
+  const loggedIn = (token) => {
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token);
+      setIsLoggedIn(true);
+    }
+  };
+
   return (
-    <div className="App">
-      <TopBar isLoggedIn={isLoggedIn} handleLogout={logout} />
-      <Main />
-    </div>
+      <div className="App">
+        <TopBar isLoggedIn={isLoggedIn} handleLogout={logout} />
+        <Main isLoggedIn={isLoggedIn} handleLoggedIn={loggedIn} />
+      </div>
   );
 };
 

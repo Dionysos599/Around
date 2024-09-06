@@ -1,0 +1,27 @@
+.caption {
+    background-color: rgba(0, 0, 0, 0.6);
+    max-height: 240px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    padding: 2px;
+    font-size: 90%;
+}
+
+.wrapper {
+    display: block;
+    min-height: 1px;
+    width: 100%;
+    border: 1px solid #ddd;
+    overflow: auto;
+}
+
+.info {
+    margin-left: 5px;
+}
+
+.delete-button {
+    margin: 0 auto;
+}
